@@ -4,26 +4,28 @@
 <body>
   <div id="root"></div>
 </body>
+
 <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
   const root = document.getElementById("root");
-  let counter = 0;
-  function countUp() {
-    counter = counter + 1;
-    render();
+  function App() {
+    // const data = React.useState(0); // 이전 방법의 카운터와 함수와 같음
+    // const counter = data[0];
+    // const modifier = data[1];
+    const [counter, setCounter] = React.useState(0); 
+    const onClick =() => {
+      setCounter(counter + 1);
+    }
+    return (
+      <div>
+        <h3>Total clicks: {counter}</h3>
+        <button onClick={onClick}>Click me!</button>
+      </div>
+    );
   }
-  function render() { // 리렌더링을 하는 함수
-    ReactDOM.render(<Container />, root); 
-  }
-  const Container = () => (
-    <div>
-      <h3>Total clicks: {counter}</h3>
-      <button onClick={countUp}>Click me!</button>
-    </div>
-  );
-  ReactDOM.render(<Container />, root);
+  ReactDOM.render(<App />, root);
   // container 렌더링이 한번 되었기 때문에 counter가 올라가지 않음.
   // ui를 새로고침 해줘야 카운터가 제대로 올라감. -> 리렌더링이 필요.
   // 이 방법은 계속해서 렌더링 해줘야 하기 때문에 좋은 방법이 아님.
