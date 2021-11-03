@@ -11,12 +11,16 @@
 <script type="text/babel">
   const root = document.getElementById("root");
   function App() {
-    // const data = React.useState(0); // 이전 방법의 카운터와 함수와 같음
-    // const counter = data[0];
-    // const modifier = data[1];
     const [counter, setCounter] = React.useState(0); 
     const onClick =() => {
-      setCounter(counter + 1);
+      // state를 변경하는 방법 2가지
+      // 1. setCounter를 이용하는 것(즉 직접 값을 주는 것)
+      // setCounter(counter + 1);
+      // 2. 함수 전달하기 
+      // 이전 값을 이용하여 현재 값을 계산하는 것
+      // 즉 현재 state로 다음 state를 계산하고 싶을 때 사용.
+      // 좀 더 안전한 방법. 리액트가 current가 현재 값이라는 걸 확실하게 보장함.
+      setCounter((current) => current + 1); 
     }
     return (
       <div>
@@ -26,9 +30,6 @@
     );
   }
   ReactDOM.render(<App />, root);
-  // container 렌더링이 한번 되었기 때문에 counter가 올라가지 않음.
-  // ui를 새로고침 해줘야 카운터가 제대로 올라감. -> 리렌더링이 필요.
-  // 이 방법은 계속해서 렌더링 해줘야 하기 때문에 좋은 방법이 아님.
 </script>
 
 </html>
