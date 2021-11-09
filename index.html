@@ -18,20 +18,32 @@
       setMinutes(event.target.value);
       // 데이터를 업데이트 하는 방법은 setState 함수를 사용하는 거임.
     };
+    // 리셋 이벤트
+    const reset = () => setMinutes(0);
     return (
       <div>
         <h1 classNmae="hi">Super Converter</h1>
-        <label htmlFor="minutes">Minutes</label>
-        <input
-          value={minutes} // input의 value를 state로 연결 -> 어디서든 input의 value 수정이 가능해짐
-          id="minutes" 
-          placeholder="Minutes" 
-          type="number"
-          onChange={onChange} // 데이터 업데이트 역할
-        />
-        <h4>You want to convert {minutes}</h4>
-        <label htmlFor="hours">Hours</label>
-        <input id="hours" placeholder="Hours" type="number" />
+        <div>
+          <label htmlFor="minutes">Minutes</label>
+          <input
+            value={minutes} // input의 value를 state로 연결 -> 어디서든 input의 value 수정이 가능해짐
+            id="minutes"
+            placeholder="Minutes"
+            type="number"
+            onChange={onChange} // 데이터 업데이트 역할
+          />
+        </div>
+        <div>
+          <label htmlFor="hours">Hours</label>
+          <input
+            // value={minutes / 60} // 시 단위로 나누는 방법
+            value={Math.round(minutes / 60)} // 이런 방법도 있음
+            id="hours" 
+            placeholder="Hours" 
+            type="number" 
+          />
+        </div>
+        <button onClick={reset}>Reset</button>
       </div>
     );
   }
