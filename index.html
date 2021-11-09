@@ -13,37 +13,53 @@
   function App() {
     // array의 첫번째 아이템은 value(데이터)
     // 두번째는 value(데이터)를 수정하고 component를 새로고침하는 함수
-    const [minutes, setMinutes] = React.useState(0); // 디폴트 값을 0으로 줌
+    const [amount, setAmount] = React.useState(0); // 디폴트 값을 0으로 줌
+    // new!! state
+    const [flipped, setFlipped] = React.useState(false);
     const onChange = (event) => {
-      setMinutes(event.target.value);
+      setAmount(event.target.value);
       // 데이터를 업데이트 하는 방법은 setState 함수를 사용하는 거임.
     };
-    // 리셋 이벤트
-    const reset = () => setMinutes(0);
+    // reset
+    const reset = () => setAmount(0);
+    // flip
+    // 새로운 state 조작이 필요
+    // const onFlip = () => setFlipped(!flipped); // 이런식으로 주는 건 좋지 못해서 바꿔주자
+    const onFlip = () => { 
+      reset();
+      setFlipped((current) => !current);
+    }
     return (
       <div>
         <h1 classNmae="hi">Super Converter</h1>
         <div>
           <label htmlFor="minutes">Minutes</label>
           <input
-            value={minutes} // input의 value를 state로 연결 -> 어디서든 input의 value 수정이 가능해짐
+            // input의 value를 state로 연결 -> 
+            // 어디서든 input의 value 수정이 가능해짐
+            value={flipped ? amount * 60 : amount} // 시를 분으로  
             id="minutes"
             placeholder="Minutes"
             type="number"
             onChange={onChange} // 데이터 업데이트 역할
+            disabled={flipped === true} // 좀 더 짧게 쓰고 싶다면 disabled={flipped}
           />
         </div>
         <div>
           <label htmlFor="hours">Hours</label>
           <input
             // value={minutes / 60} // 시 단위로 나누는 방법
-            value={Math.round(minutes / 60)} // 이런 방법도 있음
-            id="hours" 
-            placeholder="Hours" 
-            type="number" 
+            // value={Math.round(minutes / 60)} // 이런 방법도 있음
+            value={flipped ? amount : Math.round(amount / 60)}
+            id="hours"
+            placeholder="Hours"
+            type="number"
+            disabled={flipped === false} // disabled={!flipped}
+            onChange={onChange}
           />
         </div>
         <button onClick={reset}>Reset</button>
+        <button onClick={onFlip}>Flip</button>
       </div>
     );
   }
@@ -55,4 +71,5 @@
 <!-- 
   jsx로 사용시 import가 production가 아니라면 
   class => classNmae, for => htmlFor로 써줘야 오류가 나지 않는다.
+  단위 변환을 뒤집는 함수 : flip function
          -->
