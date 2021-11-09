@@ -11,9 +11,9 @@
 <script type="text/babel">
   const root = document.getElementById("root");
   function App() {
-    // array의 첫번째 아이템은 value
-    // 두번째는 value를 수정하고 component를 새로고침하는 함수
-    const [minutes, setMinutes] = React.useState();
+    // array의 첫번째 아이템은 value(데이터)
+    // 두번째는 value(데이터)를 수정하고 component를 새로고침하는 함수
+    const [minutes, setMinutes] = React.useState(0); // 디폴트 값을 0으로 줌
     const onChange = (event) => {
       setMinutes(event.target.value);
       // 데이터를 업데이트 하는 방법은 setState 함수를 사용하는 거임.
@@ -23,11 +23,11 @@
         <h1 classNmae="hi">Super Converter</h1>
         <label htmlFor="minutes">Minutes</label>
         <input
-          value={minutes}
+          value={minutes} // input의 value를 state로 연결 -> 어디서든 input의 value 수정이 가능해짐
           id="minutes" 
           placeholder="Minutes" 
           type="number"
-          onChange={onChange}
+          onChange={onChange} // 데이터 업데이트 역할
         />
         <h4>You want to convert {minutes}</h4>
         <label htmlFor="hours">Hours</label>
