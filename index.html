@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <body>
   <div id="root"></div>
 </body>
@@ -8,84 +9,27 @@
 <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
-  function MinutesToHours() {
-    // array의 첫번째 아이템은 value(데이터)
-    // 두번째는 value(데이터)를 수정하고 component를 새로고침하는 함수
-    const [amount, setAmount] = React.useState(0); // 디폴트 값을 0으로 줌
-    // new!! state
-    const [flipped, setFlipped] = React.useState(false);
-    const onChange = (event) => {
-      setAmount(event.target.value);
-      // 데이터를 업데이트 하는 방법은 setState 함수를 사용하는 거임.
-    };
-    // reset
-    const reset = () => setAmount(0);
-    // flip
-    // 새로운 state 조작이 필요
-    // const onFlip = () => setFlipped(!flipped); // 이런식으로 주는 건 좋지 못해서 바꿔주자
-    const onFlip = () => { 
-      reset();
-      setFlipped((current) => !current);
-    };
-    return (
-      <div>
-        <div>
-          <label htmlFor="minutes">Minutes</label>
-          <input
-            // input의 value를 state로 연결 -> 
-            // 어디서든 input의 value 수정이 가능해짐
-            value={flipped ? amount * 60 : amount} // 시를 분으로  
-            id="minutes"
-            placeholder="Minutes"
-            type="number"
-            onChange={onChange} // 데이터 업데이트 역할
-            disabled={flipped === true} // 좀 더 짧게 쓰고 싶다면 disabled={flipped}
-          />
-        </div>
-        <div>
-          <label htmlFor="hours">Hours</label>
-          <input
-            // value={minutes / 60} // 시 단위로 나누는 방법
-            // value={Math.round(minutes / 60)} // 이런 방법도 있음
-            value={flipped ? amount : Math.round(amount / 60)}
-            id="hours"
-            placeholder="Hours"
-            type="number"
-            disabled={flipped === false} // disabled={!flipped}
-            onChange={onChange}
-          />
-        </div>
-        <button onClick={reset}>Reset</button>
-        <button onClick={onFlip}>{flipped ? "Turn back" : "Invert"}</button>
-      </div>
-    );
-  }
-  function KmToMiles() {
-    return (
-      <h3>KM 2 M</h3>
-    );
+  function Btn(props) {
+    console.log(props);
+    return <button style={{
+      backgroundColor: "tomato",
+      color: "white",
+      padding: "10px 20px",
+      border: 0,
+      borderRadius: 10
+    }}
+    >
+      {props.text}
+    </button>;
   }
   function App() {
-    const [index, setIndex] = React.useState("xx");
-    const onSelect = (event) => {
-      setIndex(event.target.value);
-    };
     return (
       <div>
-        <h1>Super Converter</h1>
-        <select value={index} onChange={onSelect}>
-          <option value="xx">Select your units</option>
-          <option value="0">Minutes & Hours</option>
-          <option value="1">Km & Miles</option>
-        </select>
-        <hr />
-        {index === "xx" ? "Please select your units." : null}
-        {index === "0" ? <MinutesToHours /> : null}
-        {index === "1" ? <KmToMiles /> : null}
+        <Btn text="Save Changes" />
+        <Btn text="Continue" />
       </div>
     );
   }
-  
   const root = document.getElementById("root");
   ReactDOM.render(<App />, root);
 </script>
@@ -93,6 +37,5 @@
 </html>
 
 <!-- 
-  컴포넌트는 그 안에 컴포넌트를 렌더링 할 수 있다.
-  지금 하는 건 분할과 정복.
+  
          -->
